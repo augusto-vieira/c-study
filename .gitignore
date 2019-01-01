@@ -1,52 +1,42 @@
-# Prerequisites
-*.d
+#-------------------------------------codeblocks----------------------------------
+# Created by https://www.gitignore.io/api/codeblocks
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+### CodeBlocks ###
+# specific to CodeBlocks IDE
+*.layout
+*.depend
 
-# Linker output
-*.ilk
-*.map
-*.exp
+# generated directories
+bin/
+obj/
 
-# Precompiled Headers
-*.gch
-*.pch
+#---------------------------------MikroC--------------------------------------------
+# Created by https://www.gitignore.io/api/mikroc
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
+### MikroC ###
+# Backup
+*.pdsbak
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+# Debug
+Debug
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
+# Generated files
+*.workspace
+*.log
+*.bmk
+*.brk
+*.cfg
+*.dbg
+*.dct
+*.dlt
 *.hex
-
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
-
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+*.lst
+*.dic
+*_callertable.txt
+*.user.dic
+*.asm
+*.c.ini
+*.h.ini
+*.cp
+*.mcl
+#-----------------------------------------------------------------------------------
