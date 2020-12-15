@@ -13,3 +13,6 @@ projeto.o: projeto.c
 
 clean:
 	rm -rf *.o $(TARGET)
+
+run:
+	./$(TARGET)
