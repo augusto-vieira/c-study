@@ -51,7 +51,7 @@ void void_func(void)
 	printf("\n\tvoid_func: %d\n", 10);
 }
 
-// Ponteito para funçãp
+// Ponteiro para função
 typedef void (*pf)(void*);
 
 // Função que recebe como parametro outra função de qualquer tipo
