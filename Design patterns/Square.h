@@ -3,15 +3,11 @@
 
 #include "Shape.h"
 
-/**
- * @brief 
- * 
- */
 typedef struct 
 {
     Shape_t *forma;
 } Square_t;
 
-void square_draw();
+Shape_t new_Square();
 
 #endif /* SHAPE_SQUARE_H_ */

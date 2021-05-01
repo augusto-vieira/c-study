@@ -1,13 +1,10 @@
 #ifndef SHAPE_INTERFACE_H_
 #define SHAPE_INTERFACE_H_
 
-/**
- * @brief 
- * 
- */
+
 typedef struct 
 {
-    void (*draw)(void);
+    void(*draw)(void);
 } Shape_t;
 
 

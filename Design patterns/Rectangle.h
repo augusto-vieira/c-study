@@ -3,15 +3,11 @@
 
 #include "Shape.h"
 
-/**
- * @brief 
- * 
- */
 typedef struct 
 {
     Shape_t *forma;
 } Rectangle_t;
 
-void rectangle_draw();
+Shape_t new_Rectangle();
 
 #endif /* SHAPE_RECTANGLE_H_ */

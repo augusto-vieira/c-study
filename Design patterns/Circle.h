@@ -3,15 +3,11 @@
 
 #include "Shape.h"
 
-/**
- * @brief 
- * 
- */
 typedef struct 
 {
     Shape_t *forma;
 } Circle_t;
 
-void circulo_draw();
+Shape_t new_Circulo();
 
 #endif /* SHAPE_CIRCLE_H_ */

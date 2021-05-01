@@ -5,17 +5,16 @@
 
 int main(void)
 {
-  ShapeFactory *shapeFactory = new_ShapeFactory();
+  ShapeFactory shapeFactory = new_ShapeFactory();
 
-  Shape_t *shape1 = shapeFactory->getSahpe("CIRCULO");
+  Shape_t shape = shapeFactory.getSahpe("CIRCULO");
+  shape.draw();
 
-  shape1->draw();
+  shape = shapeFactory.getSahpe("SQUARE");
+  shape.draw();
 
-  Shape_t *shape2 = shapeFactory->getSahpe("SQUARE");
-  shape2->draw();
-
-  Shape_t *shape3 = shapeFactory->getSahpe("RECTANGLE");
-  shape3->draw();
+  shape = shapeFactory.getSahpe("RECTANGLE");
+  shape.draw();
 
 return 0;
 }

@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h>
 
 #include "ShapeFactory.h"
 #include "Shape.h"
@@ -9,45 +8,33 @@
 #include "Square.h"
 #include "Rectangle.h"
 
-ShapeFactory* new_ShapeFactory()
+Shape_t get_draw(const char *shapeType)
 {
-   ShapeFactory *shapeFactory = malloc(sizeof(ShapeFactory));
-   
-    if(shapeFactory == NULL)
-        return NULL;
+    Shape_t forma;
+
+    if( !(strcmp(shapeType, "CIRCULO")))
+    {
+        forma =  new_Circulo();
+    }
     
-    shapeFactory->getSahpe = &get_draw;
+    if( !(strcmp(shapeType, "SQUARE")))
+    {
+        forma = new_Square();	
+        
+    }		
     
-    return shapeFactory;
+    if( !(strcmp(shapeType, "RECTANGLE")))
+    {
+        forma =  new_Rectangle(); 
+    }
+    
+    return forma;	 		
 }
 
-Shape_t* get_draw(void *shapeType)
+ShapeFactory new_ShapeFactory()
 {
-    
-    if(shapeType == NULL)
-    {
-        return NULL;
-    }
-    if( !(strcmp((char*)shapeType, "CIRCULO")))
-    {
-        Shape_t *forma = malloc(sizeof(Shape_t));
-        forma->draw = &circulo_draw;
-        return forma;	
-    }
-    
-    if( !(strcmp((char*)shapeType, "SQUARE")))
-    {
-        Shape_t *forma = malloc(sizeof(Shape_t));
-        forma->draw = &square_draw;
-        return forma;	
-    }		
-    
-        if( !(strcmp((char*)shapeType, "RECTANGLE")))
-    {
-        Shape_t *forma = malloc(sizeof(Shape_t));
-        forma->draw = &rectangle_draw;
-        return forma;	
-    }		
+    ShapeFactory shapeFactory;
+    shapeFactory.getSahpe = get_draw;
 
-return NULL;	
+    return shapeFactory;
 }
