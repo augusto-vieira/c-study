@@ -1,4 +1,4 @@
-# •	Padrão de Design - Padrão de Fábrica 
+# 	Padrão de Design - Padrão de Fábrica 
 
 O padrão de fábrica é um dos padrões de design mais usados ​​em Java. Esse tipo de padrão de design está incluído no padrão de criação, pois esse padrão fornece uma das melhores maneiras de criar um objeto.
 
@@ -12,109 +12,6 @@ Vamos criar uma **interface Shape** e classes implementando a interface Shape. U
 
 ![Diagrama](https://www.tutorialspoint.com/design_pattern/images/factory_pattern_uml_diagram.jpg)
 
-
-Uma **Pilha** é um tipo especial de **Lista**.
-
-Inserções e exclusões de elementos ocorrem apenas no início da Pilha.
-
-![Pilha Estatica](https://github.com/augusto-vieira/LinguagemC_Pilha/blob/master/PilhaEstatica/img/gif/Push_Pop.gif)
-
-1. **Aplicações:**
-    - Análise de uma expressão matemática 
-    - Avaliação de expressão pós-fixa
-    - Converter uma expressão in-fixa para pós-fixa
-    - Converter um número decimal para binário
-    - Gerenciamento de memória
-    - Problemas de Backtracking
-    - etc
-
-
-2. **Em uma "Pilha" podemos realizar as seguintes operações básicas::**
-    - Criação da pilha
-    - Inserção de um elemento no "início"
-    - Exclusão de um elemento do "inicio"
-    - Acesso a um elemento do "inicio"
-    - Destruição da Pilha
-    - etc
-
-
-3. **Essas operações dependem do tipo de alocação de memória usa**
-    - **Estática**
-    - Dinâmica
-
-Alocação estática:  
-
->- O espaço de memória é alocada no momento da compilação
->-  Existe a definição do número máximo de elementos da “Pilha”
->- Acesso sequencial: elementos consecutivos da memória 
-
-
-## **Pilha Estática**
-Tipo de "Pilha" onde o sucessor de um elemento ocupa a posição física seguinte do mesmo(uso de "array").
-
-![Pilha pi](https://github.com/augusto-vieira/LinguagemC_Pilha/blob/master/PilhaEstatica/img/Pilha_pi.png)
-
-
-Definimos a Pilha em dois arquivos.
-
-**"PilhaSequencial.h" :** Definir
-- Os protótipos das funções
-- O tipo de dado armazenado na pilha
-- O ponteiro "pilha"
-- Tamanho do vetor usado na pilha
-
-**"PilhaSequencial.h" :** Definir
-- O tipo de dados  "pilha"
-- Implementar as suas funções. 
-
-
-**Algumas informações básicas sobre a pilha:**
- - Tamanho
- - Se está cheia
-
-
-
->Em uma "Pilha" a inserção é sempre no início/topo. Também existe o caso em que a inserção é feita em uma “Pilha” que está vazia.
->
->**Cuidado:** não se pode inserir em uma pilha cheia.
-
->Em uma "Pilha" a remoção é sempre no seu início/topo.
->
->**Cuidado:** não se pode remover de uma pilha vazia.
-
-> Em uma "Pilha" a consulta se dá apenas ao elemento que está no seu início.
-
-
-``` C
-/* PilhaSequencial.h */
-
-// tamanho máximo do vetor que representa a pilha
-#define MAX 100
-
-// elemento/dado que será armazena em cada posição do vetor pilha
-struct aluno
-{
-    int matricula;
-    char nome[30];
-    float n1,n2,n3;
-};
-
-typedef struct pilha Pilha;
-```
-
-``` c
-/* PilhaSequencial.c */
-#include<stdio.h>
-#include <stdlib.h>
-
-#include "PilhaSequencial.h"
-
-struct pilha
-{
-   int qtd;
-   struct aluno dados[MAX]; 
-};
-``` 
 Passo 1: Criar interface
 #### Shape.java
 ``` java
@@ -225,6 +122,29 @@ Inside Square::draw() method.
     - Métodos =  funções
         - método private = funções static
 
+#### main.c
+``` C
+#include <stdio.h>
+
+#include "Shape.h"
+#include "ShapeFactory.h"
+
+int main(void)
+{
+  ShapeFactory shapeFactory = new_ShapeFactory();
+
+  Shape_t shape = shapeFactory.getShape("CIRCULO");
+  shape.draw();
+
+  shape = shapeFactory.getShape("SQUARE");
+  shape.draw();
+
+  shape = shapeFactory.getShape("RECTANGLE");
+  shape.draw();
+
+return 0;
+}
+``` 
 
 
 ### Referência:
