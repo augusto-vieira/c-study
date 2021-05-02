@@ -7,13 +7,13 @@ int main(void)
 {
   ShapeFactory shapeFactory = new_ShapeFactory();
 
-  Shape_t shape = shapeFactory.getSahpe("CIRCULO");
+  Shape_t shape = shapeFactory.getShape("CIRCULO");
   shape.draw();
 
-  shape = shapeFactory.getSahpe("SQUARE");
+  shape = shapeFactory.getShape("SQUARE");
   shape.draw();
 
-  shape = shapeFactory.getSahpe("RECTANGLE");
+  shape = shapeFactory.getShape("RECTANGLE");
   shape.draw();
 
 return 0;

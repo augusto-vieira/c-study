@@ -5,7 +5,7 @@
 
 typedef struct 
 {
-    Shape_t (*getSahpe)(const char *shapeType);
+    Shape_t (*getShape)(const char *shapeType);
 } ShapeFactory;
 
 ShapeFactory new_ShapeFactory();

@@ -34,7 +34,7 @@ Shape_t get_draw(const char *shapeType)
 ShapeFactory new_ShapeFactory()
 {
     ShapeFactory shapeFactory;
-    shapeFactory.getSahpe = get_draw;
+    shapeFactory.getShape = get_draw;
 
     return shapeFactory;
 }

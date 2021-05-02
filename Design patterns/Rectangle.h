@@ -5,7 +5,7 @@
 
 typedef struct 
 {
-    Shape_t *forma;
+    Shape_t *draw;
 } Rectangle_t;
 
 Shape_t new_Rectangle();

@@ -5,7 +5,7 @@
 
 typedef struct 
 {
-    Shape_t *forma;
+    Shape_t *draw;
 } Square_t;
 
 Shape_t new_Square();
