@@ -122,6 +122,8 @@ Inside Square::draw() method.
     - Métodos =  funções
         - método private = funções static
 
+![DiagramaEmC](https://github.com/augusto-vieira/LinguagemC_Design_Patterns/blob/master/Design%20patterns/img/Patterns.png)
+
 #### main.c
 ``` C
 #include <stdio.h>
