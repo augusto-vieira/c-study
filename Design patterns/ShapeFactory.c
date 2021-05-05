@@ -14,7 +14,7 @@ Shape_t get_draw(const char *shapeType)
 
     if( !(strcmp(shapeType, "CIRCULO")))
     {
-        forma =  new_Circulo();
+        forma =  new_Circle();
     }
     
     if( !(strcmp(shapeType, "SQUARE")))

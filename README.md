@@ -90,10 +90,10 @@ public class FactoryPatternDemo {
       //Chama o método de desenho do Círculo
       shape1.draw();
 
-      //Obtém um objeto do tipo Retangulo e chama seu método de desenho.
+      //Obtém um objeto do tipo Retângulo e chama seu método de desenho.
       Shape shape2 = shapeFactory.getShape("RECTANGLE");
 
-      //Chama o método de desenho do Retangulo
+      //Chama o método de desenho do Retângulo
       shape2.draw();
 
       //Obtém um objeto do tipo do Quadrado e chama seu método de desenho.
@@ -124,6 +124,196 @@ Inside Square::draw() method.
 
 ![DiagramaEmC](https://github.com/augusto-vieira/LinguagemC_Design_Patterns/blob/master/Design%20patterns/img/Patterns.png)
 
+
+Passo 1: Criar um arquivo **Shape.h**, declamos neste arquivo uma struc(Shape_t) que representa nossa Classe de interface.
+#### Shape.h
+``` C
+typedef struct 
+{
+   // Representa nosso Método draw():void em Java
+   void(*draw)(void);
+} Shape_t;
+
+``` 
+Passo 2: Criar um arquivo **Rectangle.h** e **Rectangle.c**, que representa a criação da nossa Classe e Implementação da Interface.
+#### Rectangle.h
+``` C
+#include "Shape.h"
+
+typedef struct 
+{
+   // A Classe Rectangle_t recebe o Método draw()
+   Shape_t *draw;
+} Rectangle_t;
+
+// Método que irá instanciar o objeto Retângulo
+Shape_t new_Rectangle();
+``` 
+#### Rectangle.c
+``` C
+#include <stdio.h>
+#include "Rectangle.h"
+
+// Método Retângulo
+static void rectangle_draw()
+{
+   printf("Inside Rectangle::draw() method.\n");
+}
+
+Shape_t new_Rectangle()
+{
+   // Atribui o método do Retângulo rectangle_draw() ao draw do objeto retangulo
+   Shape_t retangulo =
+   {
+      .draw = rectangle_draw
+   };
+
+   // Retorna o objeto
+   return retangulo;
+}
+``` 
+
+#### Square.h
+``` C
+#include "Shape.h"
+
+typedef struct 
+{
+   // A Classe Square_t recebe o Método draw()
+   Shape_t *draw;
+} Square_t;
+
+// Método que irá instanciar o objeto Square
+Shape_t new_Square();
+``` 
+#### Square.c
+``` C
+#include <stdio.h>
+#include "Square.h"
+
+// Método Quadrado
+static void square_draw()
+{
+   printf("Inside Square::draw() method.\n");
+}
+
+Shape_t new_Square()
+{
+   // Atribui o método do Quadrado square_draw() ao draw do objeto quadrado
+   Shape_t quadrado =
+   {
+      .draw = square_draw
+   };
+
+   return quadrado;
+}
+``` 
+
+#### Circle.h
+``` C
+#include "Shape.h"
+
+typedef struct 
+{
+   // A Classe Circle_t recebe o Método draw()
+   Shape_t *draw;
+} Circle_t;
+
+// Método que irá instanciar o objeto Circle
+Shape_t new_Circle();
+``` 
+#### Circle.c
+``` C
+#include <stdio.h>
+#include "Circle.h"
+
+// Método Circle
+static void circulo_draw()
+{
+    printf("Inside Circle::draw() method.\n");
+}
+
+Shape_t new_Circle()
+{
+   // Atribui o método do Circulo circulo_draw() ao draw do objeto circulo
+   Shape_t circulo =
+   {
+      .draw = circulo_draw
+   };
+   
+   // Retorna o objeto
+   return circulo;
+}
+``` 
+
+#### ShapeFactory.h
+``` C
+#include "Shape.h"
+
+typedef struct 
+{
+   // A Classe ShapeFactory recebe o Método getShape()
+   Shape_t (*getShape)(const char *shapeType);
+} ShapeFactory;
+
+// Método que irá instanciar o objeto ShapeFactory
+ShapeFactory new_ShapeFactory();
+``` 
+
+#### ShapeFactory.c
+``` C
+#include <stdio.h>
+#include <string.h>
+
+#include "ShapeFactory.h"
+#include "Shape.h"
+
+#include "Circle.h"
+#include "Square.h"
+#include "Rectangle.h"
+
+// Método getShape para obter o objeto do tipo de forma
+Shape_t get_draw(const char *shapeType)
+{
+    // Objeto forma
+    Shape_t forma;
+
+    if( !(strcmp(shapeType, "CIRCULO")))
+    {
+      // Cria o objeto Circulo e atribui no objeto forma
+      forma =  new_Circle();
+    }
+    
+    if( !(strcmp(shapeType, "SQUARE")))
+    {
+      // Cria o objeto Quadrado e atribui no objeto forma
+      forma = new_Square();	
+        
+    }		
+    
+    if( !(strcmp(shapeType, "RECTANGLE")))
+    {
+      // Cria o objeto Retâgunlo e atribui no objeto forma
+      forma =  new_Rectangle(); 
+    }
+    
+   // Retorna o objeto
+   return forma;	 		
+}
+
+ShapeFactory new_ShapeFactory()
+{
+   ShapeFactory shapeFactory;
+   // Atribui o método get_draw(const char *shapeType) ao getShape do objeto shapeFactory
+   
+   shapeFactory.getShape = get_draw;
+
+   // Retorna o objeto
+   return shapeFactory;
+}
+``` 
+Passo 4: Criar um arquivo **main.c**, para obter o objeto da classe passando uma informação como tipo dela.
+
 #### main.c
 ``` C
 #include <stdio.h>
@@ -147,7 +337,13 @@ int main(void)
 return 0;
 }
 ``` 
+#### Output:
 
+``` 
+Inside Circle::draw() method.
+Inside Rectangle::draw() method.
+Inside Square::draw() method.
+```
 
 ### Referência:
 - https://www.tutorialspoint.com/design_pattern/factory_pattern.htm
