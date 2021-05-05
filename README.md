@@ -125,7 +125,7 @@ Inside Square::draw() method.
 ![DiagramaEmC](https://github.com/augusto-vieira/LinguagemC_Design_Patterns/blob/master/Design%20patterns/img/Patterns.png)
 
 
-Passo 1: Criar um arquivo **Shape.h**, declamos neste arquivo uma struc(Shape_t) que representa nossa Classe de interface.
+Passo 1: Criar um arquivo **Shape.h**, declamos neste arquivo uma struct(Shape_t) que representa nossa Classe de interface.
 #### Shape.h
 ``` C
 typedef struct 
