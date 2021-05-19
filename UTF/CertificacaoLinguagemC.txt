@@ -1,0 +1,12 @@
+Especificação C17 e C2x
+operador unário
+#include<uchar.h>
+
+==================
+char16_t  , char32_t  , wchar_t
+
+char é a representação de caractere original, normalmente de 8 bits.
+
+wchar é um "wide char", 16 bits, usado pelo Windows. A Microsoft foi uma das primeiras a adotar o Unicode, infelizmente isso os prendeu com essa codificação usada apenas no Windows.
+
+char16 e char32, usados ​​para UTF-16 e -32

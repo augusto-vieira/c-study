@@ -1,0 +1,6 @@
+
+A soma eh: 4 
+Valores pego de Entrada.txt
+
+A soma eh: 4 
+Valores pego de Entrada.txt
