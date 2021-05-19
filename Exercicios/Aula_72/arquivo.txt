@@ -1,0 +1,3 @@
+c é uma linguagem de programação compilada de propósito geral estruturada, 
+imperativa, procedural, padronizada pela ISO. criada em 1972, por Dennis Ritchil,
+no AT&T Bell Labs
