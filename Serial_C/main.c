@@ -2,19 +2,32 @@
 #include <windows.h>
 #include <stdio.h>
 #include <conio.h>
+#include <string.h>
 #define    BUFFERLENGTH 256
 int main(int argc, char *argv[])
 {
+	char *pcCommPort;
+
+	if (argv[1] != NULL)
+	{
+		printf("porta: 'COM0' \n", argv[1]);
+		strncpy(pcCommPort, argv[1], sizeof(argv[1])); 
+	}else
+	{
+		printf("Informa a porta: 'COM0' ");
+		return 1;
+	}
+	
 	HANDLE hComm;                           // Identificador para a porta serial
 	DWORD MORO;
-	char   *pcCommPort = "COM1";            // Nome da porta serial a ser aberta,
+	// char   *pcCommPort = "COM4";            // Nome da porta serial a ser aberta,
 	BOOL Write_Status;
 	DCB dcbSerialParams;					// Inicializando a estrutura do DCB
 	COMMTIMEOUTS timeouts = { 0 };
-	BOOL  Read_Status;                      // Status das várias operações
-	DWORD dwEventMask;						// Máscara de evento para acionar
-	char  TempChar = "";                    // Caráter temporário
-	char  *SerialBuffer[BUFFERLENGTH+1];    // Buffer contendo dados Rxed
+	BOOL  Read_Status;                      // Status das vï¿½rias operaï¿½ï¿½es
+	DWORD dwEventMask;						// Mï¿½scara de evento para acionar
+	char  TempChar;                    // Carï¿½ter temporï¿½rio
+	char  SerialBuffer[BUFFERLENGTH+1];    // Buffer contendo dados Rxed
 	DWORD NoBytesRead;                      // Bytes lidos por ReadFile ()
 	int i = 0;
 
@@ -26,10 +39,10 @@ int main(int argc, char *argv[])
 	hComm = CreateFileA(pcCommPort,
 		GENERIC_READ | GENERIC_WRITE,
 		0,    // deve ser aberto com acesso exclusivo
-		NULL, // sem atributos de segurança
+		NULL, // sem atributos de seguranï¿½a
 		OPEN_EXISTING, // deve usar OPEN_EXISTING
-		0,    // sem sobreposição de E / S
-		NULL  // O modelo deve ser NULL para dispositivos de comunicação
+		0,    // sem sobreposiï¿½ï¿½o de E / S
+		NULL  // O modelo deve ser NULL para dispositivos de comunicaï¿½ï¿½o
 	);
 
 	if (hComm == INVALID_HANDLE_VALUE)
@@ -38,18 +51,18 @@ int main(int argc, char *argv[])
 		if (GetLastError() == ERROR_FILE_NOT_FOUND)
 		{
 			puts("nao pode abrir a porta!");
-			return;
+			return 1;
 		}
 
 		puts("valor de identificador invalido!");
-		return;
+		return 1;
 	}
 	else
 	  printf("Porta serial aberta com Sucesso");
 
 	dcbSerialParams.DCBlength = sizeof(dcbSerialParams);
 
-	Write_Status = GetCommState(hComm, &dcbSerialParams);     //recupera as configurações atuais
+	Write_Status = GetCommState(hComm, &dcbSerialParams);     //recupera as configuraï¿½ï¿½es atuais
 
 	if (Write_Status == FALSE) {
 		printf("\n   Erro! em GetCommState()");
@@ -64,11 +77,11 @@ int main(int argc, char *argv[])
 	dcbSerialParams.StopBits = ONESTOPBIT;    // Definindo StopBits = 1
 	dcbSerialParams.Parity = ODDPARITY;       // Definindo Parity = None
 
-	Write_Status = SetCommState(hComm, &dcbSerialParams);  //Configurando a porta de acordo com as configurações no DCB
+	Write_Status = SetCommState(hComm, &dcbSerialParams);  //Configurando a porta de acordo com as configuraï¿½ï¿½es no DCB
 
 	if (Write_Status == FALSE)
 	{
-		printf("\n   Erro! na configuração da estrutura do DCB");
+		printf("\n   Erro! na configuraï¿½ï¿½o da estrutura do DCB");
 		CloseHandle(hComm);
 		return 1;
 	}
@@ -81,7 +94,7 @@ int main(int argc, char *argv[])
 		printf("\n       Parity   = %d", dcbSerialParams.Parity);
 	}
 
-	// Definir as configurações de tempo limite da porta COM
+	// Definir as configuraï¿½ï¿½es de tempo limite da porta COM
 	timeouts.ReadIntervalTimeout = 50;
 	timeouts.ReadTotalTimeoutConstant = 50;
 	timeouts.ReadTotalTimeoutMultiplier = 10;
@@ -96,13 +109,13 @@ int main(int argc, char *argv[])
 
 
 	/*----------------------------- Escrevendo um caractere na porta serial----------------------------------------*/
-	char lp[] = "augusto\r\n";		// lpBuffer deve ser uma matriz char ou byte, caso contrário, a escrita falhará
+	char lp[] = "A";		// lpBuffer deve ser uma matriz char ou byte, caso contrï¿½rio, a escrita falharï¿½
 
 	DWORD  NumWritten;
-	DWORD  dNoOFBytestoWrite;              // Não de bytes para gravar na porta
+	DWORD  dNoOFBytestoWrite;              // Nï¿½o de bytes para gravar na porta
 	DWORD  dNoOfBytesWritten = 0;          // Nenhum dos bytes gravados na porta
 
-	dNoOFBytestoWrite = sizeof(lp); // Calculando o número de bytes para gravar na porta
+	dNoOFBytestoWrite = sizeof(lp); // Calculando o nï¿½mero de bytes para gravar na porta
 
 
 	if (!WriteFile(hComm, lp, dNoOFBytestoWrite,
@@ -121,9 +134,9 @@ int main(int argc, char *argv[])
 	else
 		printf("\n\n   Erro %d Escrevendo para porta serial", GetLastError());
 
-	/*------------------------------------ Configurando Máscara de Recebimento----------------------------------------------*/
+	/*------------------------------------ Configurando Mï¿½scara de Recebimento----------------------------------------------*/
 
-	Read_Status = SetCommMask(hComm, EV_RXCHAR); // Configurar o Windows para monitorar o dispositivo serial para recepção de caractere
+	Read_Status = SetCommMask(hComm, EV_RXCHAR); // Configurar o Windows para monitorar o dispositivo serial para recepï¿½ï¿½o de caractere
 	if (Read_Status == FALSE)
 		printf("\n\n    Erro! na configuracao CommMask");
 	else
@@ -134,48 +147,31 @@ int main(int argc, char *argv[])
 
 	printf("\n\n    Aguardando a recepcao de dados");
 
-	Read_Status = WaitCommEvent(hComm, &dwEventMask, NULL); //Aguarde até que o caractere a ser recebido
+	Read_Status = WaitCommEvent(hComm, &dwEventMask, NULL); //Aguarde atï¿½ que o caractere a ser recebido
 
-	 /*-------------------------- Programa vai esperar aqui até que um caracter seja recebido ------------------------*/
+	 /*-------------------------- Programa vai esperar aqui atï¿½ que um caracter seja recebido ------------------------*/
 
 	if (Read_Status == FALSE)
 	{
-		printf("\n    Erro! na configuração WaitCommEvent ()");
+		printf("\n    Erro! na configuraï¿½ï¿½o WaitCommEvent ()");
 	}
 	else //Se WaitCommEvent () == True Ler os dados RXed usando ReadFile();
 	{
-		printf("\n\n    Caracteres recebidos \t");
-
-
-
+		printf("\n\n    Caracteres recebidos: \t");
 		do
 		{
 			Read_Status = ReadFile(hComm, &TempChar, sizeof(TempChar), &NoBytesRead, NULL);
-			if (!ReadFile(hComm, SerialBuffer, BUFFERLENGTH, &NoBytesRead, NULL))
-			{
-				printf("caracter errado");
-			}
+			Sleep(500); // Tempo para ler o caracter, muito baixo, ele nÃ£o consegue ler corretamente 
 			SerialBuffer[i] = TempChar;
 			printf("%c", SerialBuffer[i]);
-			i++;
+			i++; 
 		} while (NoBytesRead > 0);
-
-
-
 		/*------------Printing the RXed String to Console----------------------*/
-
-		printf("\n\n    ");
-		int j = 0;
-		for (j = 0; j < i - 1; j++)		// j < i-1 to remover o último caractere duplicado
-			printf("%c",SerialBuffer[j]);
-
 	}
-
 
 	CloseHandle(hComm);// Fechando a porta serial
 	printf("\n ==========================================\n");
-
-
+	
 	return 0;
 }
 
