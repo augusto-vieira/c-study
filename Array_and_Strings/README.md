@@ -21,10 +21,14 @@ Analisando o código:
 
 ❌**Afirmação Errada**:
 - A ideia de que "ponteiro aponta" não está correta.
+
 ✅​**Afirmação Correta**:
+
 **1. Ponteiros não "apontam"**
+  
 - Ponteiro é uma variável que **recebe um endereço como valor**.
 - Ele não possui um comportamento especial diferente de outras variáveis em C.
+
 ✅**Exemplo Correto de "Ponteiro Apontando"**
 ```c
 int a = 10; 
