@@ -75,7 +75,7 @@ void ordenar(char *lista[MAX_LINHAS], int total_linhas)
         /* debug das linhas */
         // printf("lista[%d][0](%c) - lista[%d][0](%c)\n", i, c1, j, c2);
 
-        /* Compara o entre lista[i] e lista[j] */
+        /* Comparação entre o caractere da lista[i] e lista[j] */
         if (c1 > c2)
         {
           /* Troca as posições caso lista[i] seja maior que lista[j] */
