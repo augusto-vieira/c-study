@@ -1,85 +1,76 @@
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <string.h>
 
-/*
-10  20 100 arquivo.txt
-10 linhas
-20 palavras
-100 bytes (caracteres)
+/* Tamanho do buffer estático */ 
+#define BUFFER_SIZE 1024 
 
-*/
+#define LINHAS    0
+#define PALAVRAS  1
+#define BYTES     2
+#define VARIAVEIS 3
 
-#define BUFFER_SIZE 1024  // Tamanho do buffer estático
-
-void contar_palavras_na_linha(char *linha, size_t *total_palavras){
+void contar_palavras_na_linha(char *linha, size_t *total){
   char *token = strtok(linha, " \t\n");
   while (token != NULL){
-      (*total_palavras)++;
+      total[PALAVRAS]++;
       token = strtok(NULL, " \t\n");
     }
 }
 
-// void processar_entrada(size_t *buffer,size_t *total_linhas, size_t *total_palavras, size_t *total_bytes){
-//       // Leitura da entrada linha por linha
-//       while (fgets(buffer, BUFFER_SIZE, stdin) != NULL){
-//         total_bytes += strlen(buffer);
-//         contar_palavras_na_linha(buffer, &total_palavras);
-//         total_linhas++;
-//       }
-// }
+void processar_entrada(char *buffer,size_t *total, FILE *entrada){
+    
+    /* Realiza a leitura, linha por linha */
+    while (fgets(buffer, BUFFER_SIZE, entrada) != NULL){
+      total[BYTES] += strlen(buffer);
+      contar_palavras_na_linha(buffer, total);
+      total[LINHAS]++;
+      }
+}
 
 int main(int argc, char *argv[]){
   
-  char buffer[BUFFER_SIZE];         // Buffer para armazenar cada linha da entrada
-  size_t total_bytes = 0;           // Contador de bytes (caracteres lidos)
-  size_t total_palavras = 0;        // Contador de palavras
-  size_t total_linhas = 0;          // Contador de linhas
+  char buffer[BUFFER_SIZE];         
+  size_t total[VARIAVEIS] = {0};
+  FILE *entrada = stdin;
 
+  /* Verificar se a entrada é o padrão ou Redirecionamento/Pipe */
+  if(isatty(STDIN_FILENO) || argc != 1){
+    
+    if(argc == 1){
+      processar_entrada(buffer, total, entrada);
+      printf("%4zu %5zu %5zu\n", total[LINHAS], total[PALAVRAS], total[BYTES]);
+      return EXIT_SUCCESS;
+    }
 
-  if(isatty(STDIN_FILENO)){
-    printf("Entrada Padrao\n");
-    FILE *input_file = stdin;
-    //if()
     for(int i = 1; i < argc; i++){
 
-      size_t tmp_bytes    = 0;
-      size_t tmp_palavras = 0;
-      size_t tmp_linhas   = 0;
-
-      input_file = fopen(argv[i], "r");
-      if(input_file == NULL){
+      size_t total_tmp[VARIAVEIS] = {0};
+      entrada = fopen(argv[i], "r");
+      
+      if(entrada == NULL){
         perror("Erro ao abrir o arquivo");
-        return 1;
+        return EXIT_FAILURE;
       }
-      // Leitura da entrada linha por linha
-      while (fgets(buffer, BUFFER_SIZE, input_file) != NULL){
-        tmp_bytes += strlen(buffer);
-        contar_palavras_na_linha(buffer, &tmp_palavras);
-        tmp_linhas++;
-        }    
-      printf("%4zu %5zu %5zu %s\n", tmp_linhas, tmp_palavras, tmp_bytes, argv[i]);
-      total_bytes    += tmp_bytes;
-      total_palavras += tmp_palavras;
-      total_linhas   += tmp_linhas;
+     
+      processar_entrada(buffer, total_tmp, entrada);
+      total[LINHAS]   += total_tmp[LINHAS];
+      total[PALAVRAS] += total_tmp[PALAVRAS];
+      total[BYTES]    += total_tmp[BYTES];
+  
+      printf("%4zu %5zu %5zu %s\n", total_tmp[LINHAS], total_tmp[PALAVRAS], total_tmp[BYTES], argv[i]);
     }
     if(argc > 2)
-      printf("%4zu %5zu %5zu total\n", total_linhas, total_palavras, total_bytes);
+      printf("%4zu %5zu %5zu total\n", total[LINHAS], total[PALAVRAS], total[BYTES]);
   }
   else{
-    //printf("Redirecionamento ou Pipe\n");
-    // Leitura da entrada linha por linha
-    while (fgets(buffer, BUFFER_SIZE, stdin) != NULL){
-      total_bytes += strlen(buffer);
-      contar_palavras_na_linha(buffer, &total_palavras);
-      total_linhas++;
-      }
+  
+    processar_entrada(buffer, total, entrada);
+    printf("%4zu %5zu %5zu\n", total[LINHAS], total[PALAVRAS], total[BYTES]);
+    
+  }   
 
-    // Exibe os resultados: linhas, palavras e bytes
-    printf("%4zu %5zu %5zu\n", total_linhas, total_palavras, total_bytes);
-    
-  }
-    
-  return 0;
+  return EXIT_SUCCESS;
 }
  
