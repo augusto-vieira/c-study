@@ -3,6 +3,6 @@
 
 int soma(int a, int b);
 
-int soma_tripla(int a, int b, int c); // Adicionando a declaração da nova função
+int soma3(int a, int b, int c); // Adicionando a declaração da nova função
 
 #endif

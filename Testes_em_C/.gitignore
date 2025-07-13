@@ -1,0 +1,30 @@
+# Objetos de compilação e binários
+obj/
+*.o
+*.out
+*.exe
+*.a
+*.so
+# Executáveis 
+/tests/bin/
+# Arquivos de cobertura
+*.gcda
+*.gcno
+*.gcov
+cobertura.info
+cobertura_filtrada.info
+cobertura.xml
+
+# Relatórios de cobertura
+cobertura_html/
+gcov/
+
+# Arquivos de teste temporários
+*.log
+
+# Arquivos do editor/IDE
+.vscode/
+*.swp
+*~
+
+# Outros arquivos desnecessários
