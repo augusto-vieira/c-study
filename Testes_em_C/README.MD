@@ -122,19 +122,23 @@ sudo apt install build-essential libcmocka-dev lcov gcovr xdg-utils
    make run_test_soma
    make run_test_divisao
    ```
-4. Gere cobertura com `gcov`:
+4. Gere relatório com `gcovr` (CLI)
    ```bash
    make coverage
-   ```
-5. Gere relatório HTML com `lcov`:
-   ```bash
-   make lcov-html
-   ```
-6. Gere relatório com `gcovr` (HTML):
+   ``
+5. Gere relatório com `gcovr` (HTML):
    ```bash
    make gcovr-html
    ```
-7. Limpe todos os arquivos gerados:
+6. Gere relatório HTML com `lcov`:
+   ```bash
+   make lcov-html
+   ```
+7. Gere cobertura com `gcov`:
+   ```bash
+   make coverage
+   ```
+8. Limpe todos os arquivos gerados:
    ```bash
    make clean
    ```
