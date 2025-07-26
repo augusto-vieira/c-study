@@ -1,0 +1,67 @@
+#BasedOnStyle: LLVM
+#IndentWidth: 4
+#UseTab: Never
+#BreakBeforeBraces: Allman
+#ColumnLimit: 80
+#
+
+# Estilo baseado em LLVM com ajustes
+BasedOnStyle: LLVM  # Usa o estilo base LLVM, que é próximo do estilo Allman
+
+# Endentação
+IndentWidth: 2  
+TabWidth: 3     
+UseTab: Never    # Não usa tabulação, apenas espaços para Endentação
+
+# Quebra de linhas e chaves
+BreakBeforeBraces: Allman  # Coloca a chave de abertura de blocos em uma nova linha (estilo Allman)
+ColumnLimit: 100  # Define o limite de caracteres por linha. Aqui, a linha é limitada a 100 caracteres
+
+# Espaçamento antes dos parênteses em controle de fluxo
+SpaceBeforeParens: ControlStatements  # Adiciona um espaço antes dos parênteses em controladores como if, for, while
+# Exemplo: 'if (condition)' (adicionando um espaço entre 'if' e '(')
+
+# Agrupamento de parâmetros e argumentos
+BinPackParameters: false  # Garante que os parâmetros de funções e métodos sejam colocados em linhas separadas
+BinPackArguments: false   # Garante que os argumentos de funções sejam colocados em linhas separadas (não agrupados)
+
+# Regras para if, for e outras instruções de uma linha
+AllowShortIfStatementsOnASingleLine: false  # Não permite que instruções como 'if' e 'for' sejam escritas em uma linha só. Sempre coloca em várias linhas
+# Exemplo: 'if (condition) { statement; }' será reformatado para:
+#   if (condition)
+#   {
+#     statement;
+#   }
+
+# Outras personalizações
+AlignAfterOpenBracket: Align  # Alinha os parâmetros ou argumentos após a abertura de parênteses em uma nova linha, caso haja múltiplos
+# Exemplo: Em listas ou parâmetros de funções, os itens são alinhados após o parêntese
+# Exemplo:
+#   func(a, b, c);
+# Será reformatado para:
+#   func(
+#     a,
+#     b,
+#     c
+#   );
+
+IndentCaseLabels: true  # Endentar as labels 'case' dentro de um bloco 'switch'
+# Exemplo: 'case' será Endentado em relação ao bloco switch:
+#   switch (x)
+#   {
+#     case 1:
+#       // código
+#       break;
+#   }
+
+# Adicionando a configuração para alinhar o asterisco do ponteiro na va
+PointerAlignment: Right  # Garante que o asterisco será colocado junto ao tipo (int *pointer)
+
+# linha de comando
+# $ clang-format -i arquivo.c
+
+# Configurar o salvamento automático
+# Abra as configurações do VSCode (Ctrl + Shift + P, preferences, settings.json).
+# Inserir
+# "editor.formatOnSave": true
+#
